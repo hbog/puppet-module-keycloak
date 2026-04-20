@@ -154,6 +154,12 @@ Manage Keycloak realms
     defaultto :false
   end
 
+  newproperty(:registration_email_as_username , boolean: true) do
+    desc 'registrationEmailAsUsername'
+    newvalues(:true, :false)
+    defaultto :false
+  end
+
   newproperty(:login_with_email_allowed, boolean: true) do
     desc 'loginWithEmailAllowed'
     newvalues(:true, :false)
