@@ -38,6 +38,7 @@ Puppet::Type.type(:keycloak_realm).provide(:kcadm, parent: Puppet::Provider::Key
   def self.browser_security_headers
     [
       :content_security_policy,
+      :x_frame_options,
     ]
   end
 

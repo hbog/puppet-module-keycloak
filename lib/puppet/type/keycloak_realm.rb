@@ -250,6 +250,11 @@ Manage Keycloak realms
     desc 'Supported Locales'
   end
 
+  newproperty(:x_frame_options) do
+    desc 'xFrameOptions'
+    defaultto('SAMEORIGIN')
+  end
+
   newproperty(:content_security_policy) do
     desc 'contentSecurityPolicy'
     defaultto("frame-src 'self'; frame-ancestors 'self'; object-src 'none';")
