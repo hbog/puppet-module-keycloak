@@ -28,6 +28,10 @@ ExecStartPost=-/usr/bin/rm -f <%= scope['keycloak::login_config'] %>
 TimeoutStartSec=600
 TimeoutStopSec=600
 SuccessExitStatus=0 143
+RestartSec=1s
+RestartSteps=4
+RestartMaxDelaySec=60s
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
