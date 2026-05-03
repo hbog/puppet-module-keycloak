@@ -224,6 +224,12 @@ Manage Keycloak LDAP user providers
     end
   end
 
+  newproperty(:referral) do
+    desc 'referral'
+    defaultto(:absent)
+    newvalues(:absent, 'follow', 'ignore')
+  end
+
   def self.title_patterns
     [
       [
