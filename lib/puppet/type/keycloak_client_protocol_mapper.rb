@@ -261,6 +261,7 @@ Manage Keycloak protocol mappers
       'oidc-full-name-mapper',
       'oidc-group-membership-mapper',
       'oidc-audience-mapper',
+      'oidc-usermodel-realm-role-mapper',
     ]
     if self[:protocol] == 'openid-connect' && !oidc_types.include?(self[:type]) && self[:type] !~ %r{script-.+}
       raise Puppet::Error, "type #{self[:type]} is not valid for protocol openid-connect"

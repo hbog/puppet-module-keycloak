@@ -62,6 +62,7 @@ Manage Keycloak client scope protocol mappers
       'oidc-full-name-mapper',
       'oidc-group-membership-mapper',
       'oidc-audience-mapper',
+      'oidc-usermodel-realm-role-mapper',
       'saml-group-membership-mapper',
       'saml-user-property-mapper',
       'saml-user-attribute-mapper',
@@ -268,6 +269,7 @@ Manage Keycloak client scope protocol mappers
       'oidc-group-membership-mapper',
       'oidc-audience-mapper',
       'oidc-usermodel-attribute-mapper',
+      'oidc-usermodel-realm-role-mapper',
       'custom',
     ]
     if self[:protocol] == 'openid-connect' && !openid_connect_types.include?(self[:type]) && self[:type] !~ %r{script-.+}
