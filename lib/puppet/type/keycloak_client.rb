@@ -248,9 +248,23 @@ Manage Keycloak clients
     defaultto :absent
   end
 
+  newparam(:manage_roles, boolean: true) do
+    desc 'Manage client roles'
+    newvalues(:true, :false)
+    defaultto(:true)
+  end
+
   newproperty(:roles, array_matching: :all, parent: PuppetX::Keycloak::ArrayProperty) do
     desc 'roles'
     defaultto []
+
+    def insync?(is)
+      if resource[:manage_roles].to_s == 'false'
+        return true
+      end
+
+      super(is)
+    end
   end
 
   newproperty(:pkce_code_challenge_method) do
