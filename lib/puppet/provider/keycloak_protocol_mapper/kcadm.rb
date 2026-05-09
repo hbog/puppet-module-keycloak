@@ -45,7 +45,8 @@ Puppet::Type.type(:keycloak_protocol_mapper).provide(:kcadm, parent: Puppet::Pro
             protocol_mapper[:user_attribute] = d['config']['user.attribute']
           end
           if ['oidc-usermodel-property-mapper', 'oidc-group-membership-mapper',
-              'oidc-usermodel-attribute-mapper','oidc-usermodel-realm-role-mapper',].include?(protocol_mapper[:type]) || (protocol_mapper[:protocol] == 'openid-connect' && protocol_mapper[:type] =~ %r{script-.+})
+              'oidc-usermodel-attribute-mapper','oidc-usermodel-realm-role-mapper',
+              'oidc-usermodel-client-role-mapper',].include?(protocol_mapper[:type]) || (protocol_mapper[:protocol] == 'openid-connect' && protocol_mapper[:type] =~ %r{script-.+})
             protocol_mapper[:claim_name] = d['config']['claim.name']
             protocol_mapper[:json_type_label] = d['config']['jsonType.label']
           end
@@ -66,6 +67,9 @@ Puppet::Type.type(:keycloak_protocol_mapper).provide(:kcadm, parent: Puppet::Pro
           end
           if protocol_mapper[:type] == 'oidc-audience-mapper'
             protocol_mapper[:included_client_audience] = d['config']['included.client.audience']
+          end
+          if protocol_mapper[:type] == 'oidc-usermodel-client-role-mapper'
+            protocol_mapper[:client_id] = d['config']['usermodel.clientRoleMapping.clientId']
           end
           if protocol_mapper[:protocol] == 'saml'
             protocol_mapper[:attribute_name] = d['config']['attribute.name']
@@ -121,7 +125,8 @@ Puppet::Type.type(:keycloak_protocol_mapper).provide(:kcadm, parent: Puppet::Pro
       data[:config][:'user.attribute'] = resource[:user_attribute]
     end
     if ['oidc-usermodel-property-mapper', 'oidc-group-membership-mapper',
-        'oidc-usermodel-attribute-mapper','oidc-usermodel-realm-role-mapper',].include?(resource[:type]) || (resource[:protocol] == 'openid-connect' && resource[:type] =~ %r{script-.+})
+        'oidc-usermodel-attribute-mapper','oidc-usermodel-realm-role-mapper',
+        'oidc-usermodel-client-role-mapper',].include?(resource[:type]) || (resource[:protocol] == 'openid-connect' && resource[:type] =~ %r{script-.+})
       data[:config][:'claim.name'] = resource[:claim_name] if resource[:claim_name]
       data[:config][:'jsonType.label'] = resource[:json_type_label] if resource[:json_type_label]
     end
@@ -142,6 +147,9 @@ Puppet::Type.type(:keycloak_protocol_mapper).provide(:kcadm, parent: Puppet::Pro
     end
     if resource[:type] == 'oidc-audience-mapper' && resource[:included_client_audience]
       data[:config][:'included.client.audience'] = resource[:included_client_audience]
+    end
+    if resource[:type] == 'oidc-usermodel-client-role-mapper' && resource[:client_id]
+      data[:config][:'usermodel.clientRoleMapping.clientId'] = resource[:client_id]
     end
     if resource[:protocol] == 'saml'
       data[:config][:'attribute.name'] = resource[:attribute_name] if resource[:attribute_name]
@@ -216,7 +224,8 @@ Puppet::Type.type(:keycloak_protocol_mapper).provide(:kcadm, parent: Puppet::Pro
         config[:'user.attribute'] = resource[:user_attribute]
       end
       if ['oidc-usermodel-property-mapper', 'oidc-group-membership-mapper',
-          'oidc-usermodel-attribute-mapper', 'oidc-usermodel-realm-role-mapper',].include?(resource[:type]) || (resource[:protocol] == 'openid-connect' && resource[:type] =~ %r{script-.+})
+          'oidc-usermodel-attribute-mapper','oidc-usermodel-realm-role-mapper',
+          'oidc-usermodel-client-role-mapper'].include?(resource[:type]) || (resource[:protocol] == 'openid-connect' && resource[:type] =~ %r{script-.+})
         config[:'claim.name'] = resource[:claim_name] if resource[:claim_name]
         config[:'jsonType.label'] = resource[:json_type_label] if resource[:json_type_label]
       end
@@ -237,6 +246,9 @@ Puppet::Type.type(:keycloak_protocol_mapper).provide(:kcadm, parent: Puppet::Pro
       end
       if resource[:type] == 'oidc-audience-mapper' && resource[:included_client_audience]
         config[:'included.client.audience'] = resource[:included_client_audience]
+      end
+      if resource[:type] == 'oidc-usermodel-client-role-mapper' && resource[:client_id]
+        config[:'usermodel.clientRoleMapping.clientId'] = resource[:client_id]
       end
       if resource[:protocol] == 'saml'
         config[:'attribute.name'] = resource[:attribute_name] if resource[:attribute_name]
